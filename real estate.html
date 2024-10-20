@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Listings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #fff, #ffe4e1);
+            color: #333;
+        }
+        header {
+            background: #a4534a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 10px;
+        }
+        nav ul li {
+            margin: 0 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #ffde7d;
+        }
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-family: 'Montserrat', sans-serif';
+            font-size: 30px;
+            margin: 20px 0;
+            text-align: center;
+            color: #5a5a5a;
+        }
+        .about {
+            background: #ffe4e1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        .property-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .property {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .property:hover {
+            transform: translateY(-5px);
+        }
+        .property img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .property-details {
+            padding: 15px;
+            text-align: center;
+        }
+        .property h3 {
+            font-size: 20px;
+            margin: 10px 0;
+            color: #bf6a63;
+        }
+        .property p {
+            font-size: 14px;
+            color: #777;
+        }
+        .property a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #bf6a63;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .property a:hover {
+            background: #da8179;
+        }
+        footer {
+            background: #a4534a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .filter {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
+        .filter select {
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .filter button {
+            padding: 10px 15px;
+            background: #bf6a63;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .filter button:hover {
+            background: #bf6a63;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Real Estate Listings</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#properties">Properties</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <div class="filter">
+            <select id="city-select">
+                <option value="">Select City</option>
+                <option value="Nagpur">Nagpur</option>
+                <option value="Amravati">Amravati</option>
+                <option value="Umred">Umred</option>
+                <option value="Yavatmal">Yavatmal</option>
+            </select>
+            <select id="type-select">
+                <option value="">Select Property Type</option>
+                <option value="House">House</option>
+                <option value="Apartment">Apartment</option>
+                <option value="Land">Land</option>
+                <option value="Commercial">Commercial</option>
+            </select>
+            <button onclick="filterProperties()">Search</button>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>We are dedicated to helping you find your dream property in Nagpur, Amravati, Umred, and Yavatmal. Our platform offers a wide range of listings, ensuring that you find the perfect match for your needs.</p>
+    </section>
+
+    <section id="properties">
+        <h2>Available Properties</h2>
+        <div class="property-list" id="property-list">
+            <!-- Properties will be dynamically added here -->
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: info@realestate.com | Phone: +91 123 456 7890</p>
+        <p>&copy; 2024 Real Estate Listings. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const properties = [
+            // Nagpur properties
+            { city: "Nagpur", type: "House", title: "Modern 3BHK House", price: "₹80,00,000", img: "property1.jpg", desc: "A beautiful 3BHK house with modern amenities." },
+            { city: "Nagpur", type: "Apartment", title: "Luxury Apartment", price: "₹1,20,00,000", img: "property2.jpg", desc: "A luxury apartment in the heart of the city." },
+            { city: "Nagpur", type: "Land", title: "Residential Plot", price: "₹25,00,000", img: "property3.jpg", desc: "A prime residential plot available for sale." },
+            { city: "Nagpur", type: "Commercial", title: "Retail Space", price: "₹60,00,000", img: "property4.jpg", desc: "Retail space available in a bustling market." },
+            { city: "Nagpur", type: "Apartment", title: "Studio Apartment", price: "₹40,00,000", img: "property5.jpg", desc: "Modern studio apartment for young professionals." },
+            { city: "Nagpur", type: "Commercial", title: "Office Space", price: "₹55,00,000", img: "property6.jpg", desc: "Spacious office space in a prime location." },
+
+            // Amravati properties
+            { city: "Amravati", type: "House", title: "Spacious 4BHK House", price: "₹90,00,000", img: "property7.jpg", desc: "A spacious house with a large garden." },
+            { city: "Amravati", type: "Apartment", title: "2BHK Apartment", price: "₹45,00,000", img: "property8.jpg", desc: "Affordable 2BHK apartment in a quiet neighborhood." },
+            { city: "Amravati", type: "Land", title: "Plot for Sale", price: "₹20,00,000", img: "property9.jpg", desc: "Plot available for residential construction." },
+            { city: "Amravati", type: "Commercial", title: "Office Space", price: "₹50,00,000", img: "property10.jpg", desc: "Office space available in a commercial complex." },
+            
+            // Umred properties
+            { city: "Umred", type: "House", title: "Cozy 2BHK House", price: "₹35,00,000", img: "property11.jpg", desc: "A cozy house in a peaceful area." },
+            { city: "Umred", type: "Apartment", title: "1BHK Apartment", price: "₹25,00,000", img: "property12.jpg", desc: "Affordable 1BHK apartment." },
+
+            // Yavatmal properties
+            { city: "Yavatmal", type: "Land", title: "Agricultural Land", price: "₹12,00,000", img: "property13.jpg", desc: "Fertile agricultural land available." }
+        ];
+
+        function filterProperties() {
+            const city = document.getElementById('city-select').value;
+            const type = document.getElementById('type-select').value;
+            const propertyList = document.getElementById('property-list');
+
+            propertyList.innerHTML = '';
+
+            const filteredProperties = properties.filter(property => {
+                return (city === '' || property.city === city) &&
+                    (type === '' || property.type === type);
+            });
+
+            filteredProperties.forEach(property => {
+                const propertyCard = document.createElement('div');
+                propertyCard.className = 'property';
+
+                propertyCard.innerHTML = `
+                    <img src="${property.img}" alt="${property.title}">
+                    <div class="property-details">
+                        <h3>${property.title}</h3>
+                        <p>${property.desc}</p>
+                        <p>Price: ${property.price}</p>
+                        <a href="#">View Details</a>
+                    </div>
+                `;
+
+                propertyList.appendChild(propertyCard);
+            });
+        }
+
+        window.onload = filterProperties;
+    </script>
+</body>
+</html>
